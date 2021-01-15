@@ -6,12 +6,14 @@
 #include <locale.h>
 
 
+FILE *scoreEasy;
+
+
 typedef struct game{
     
     int operation;
     int value1;
     int value2;
-    int value3;
 
 }math;
 
@@ -25,12 +27,10 @@ void chooseScore(int option);
 void easyGame(int option);
 void mediumGame();
 void hardGame();
-void legendGame();
 
 void easyScore();
 void mediumScore();
 void hardScore();
-void legendScore();
 
 
 int main(){
@@ -51,27 +51,11 @@ int main(){
   }
 
 
-    FILE *scoreEasy;
+
     FILE *scoreMedium;
     FILE *scoreHard;
     FILE *scoreLegend;
-
     
-
-    scoreEasy = fopen("scoreEasy.txt", "a");
-
-    if (scoreEasy == NULL){
-    
-        printf("ERRO! O arquivo não foi aberto!\n");
-    
-    }else{
-
-        printf("O arquivo foi aberto com sucesso!");
-    
-    }
-
-
-    fclose(scoreEasy);
 */
     return 0;
 }
@@ -115,14 +99,13 @@ void chooseDifficulty(option){
         printf("|           1- Facil                        |\n");
         printf("|           2- Médio                        |\n");
         printf("|           3- Dificil                      |\n");
-        printf("|           4- Lenda                        |\n");
-        printf("|           5- Voltar                       |\n");
+        printf("|           4- Voltar                       |\n");
         printf("|-------------------------------------------|\n");
         printf("|Opção:  ");
         scanf("%d",&option);
         
         system("cls");
-    }while(option <= 0 || option >= 6);
+    }while(option <= 0 || option >= 5);
 
     switch (option){
     case 1:
@@ -135,9 +118,6 @@ void chooseDifficulty(option){
         hardGame();
         break;
     case 4:
-        legendGame();
-        break;
-    case 5:
         mainMenu(option);
     }
 }
@@ -152,14 +132,13 @@ void chooseScore(option){
         printf("|           1- Score Facil                  |\n");
         printf("|           2- Score Médio                  |\n");
         printf("|           3- Score Dificil                |\n");
-        printf("|           4- Score Lenda                  |\n");
-        printf("|           5- Voltar                       |\n");
+        printf("|           4- Voltar                       |\n");
         printf("|-------------------------------------------|\n");
         printf("|Opção:  ");
         scanf("%d",&option);
         
         system("cls");
-    }while(option <= 0 || option >= 6);
+    }while(option <= 0 || option >= 5);
 
     switch (option){
     case 1:
@@ -172,9 +151,6 @@ void chooseScore(option){
         hardScore();
         break;
     case 4:
-        legendScore();
-        break;
-    case 5:
         mainMenu(option);
     }
 }
@@ -182,20 +158,24 @@ void chooseScore(option){
 
 
 void easyGame(int option){
+
+    scoreEasy = fopen("scoreEasy.txt", "a");
+
     math easy;
     
     short int lifes = 3;
     int points = 0;
     
-    float answer;
-    float question;
+    int answer;
+    int question;
 
     do{
         
-        easy.operation = rand() % 4;
+        easy.operation = rand() % 3;
 
         switch(easy.operation){
-        case 0:           
+
+        case 0:       
             easy.value1 = rand() % 11;
             easy.value2 = rand() % 11;
             question = (easy.value1 + easy.value2);
@@ -203,14 +183,14 @@ void easyGame(int option){
             printf("|-------------------------------------------|\n");
             printf("|---------------   Responda   --------------|\n");
             printf("|-------------------------------------------|\n");
-            printf("|                 %d + %d = ?               \n",easy.value1,easy.value2);
+            printf("|                 %d + %d = ?               |\n",easy.value1,easy.value2);
             printf("|-------------------------------------------|\n");
             printf("|Resposta:  ");
-            scanf("%f",&answer);
+            scanf("%d",&answer);
 
             if (answer == question){
-                printf("\n|Resposta Certa!\n");
-                printf("Resposta certa: %f",question);
+                printf("\nResposta Certa!\n");
+                printf("Resposta certa: %d\n",question);
                 points ++;
                     
                 printf("Vidas: %d\n",lifes);
@@ -218,17 +198,18 @@ void easyGame(int option){
                     
                 system("pause");
             }else{
-                printf("\n|Resposta Errada!");
-                printf("Resposta certa: %f",question);
+                printf("\nResposta Errada!\n");
+                printf("Resposta certa: %d\n",question);
                 lifes --;
                     
                 printf("Vidas: %d\n",lifes);
                 printf("Pontos: %d\n",points);
                     
                 if (lifes == 0){
-                    printf("Game Over");
+                    printf("Game Over\n");
 
                     system("pause");
+                    points = 0;
                     mainMenu(option);
                 }
 
@@ -257,14 +238,14 @@ void easyGame(int option){
             printf("|-------------------------------------------|\n");
             printf("|---------------   Responda   --------------|\n");
             printf("|-------------------------------------------|\n");
-            printf("|                 %d - %d = ?               \n",easy.value1,easy.value2);
+            printf("|                 %d - %d = ?               |\n",easy.value1,easy.value2);
             printf("|-------------------------------------------|\n");
             printf("|Resposta:  ");
-            scanf("%f",&answer);
+            scanf("%d",&answer);
 
             if (answer == question){
-                printf("\n|Resposta Certa!\n");
-                printf("Resposta certa: %f",question);
+                printf("\nResposta Certa!\n");
+                printf("Resposta certa: %d\n",question);
                 points ++;
                     
                 printf("Vidas: %d\n",lifes);
@@ -272,17 +253,18 @@ void easyGame(int option){
                     
                 system("pause");
             }else{
-                printf("\n|Resposta Errada!");
-                printf("Resposta certa: %f",question);
+                printf("\nResposta Errada!\n");
+                printf("Resposta certa: %d\n",question);
                 lifes --;
                     
                 printf("Vidas: %d\n",lifes);
                 printf("Pontos: %d\n",points);
                     
                 if (lifes == 0){
-                    printf("Game Over");
+                    printf("Game Over\n");
 
                     system("pause");
+                    points = 0;
                     mainMenu(option);
                 }
                 
@@ -311,14 +293,14 @@ void easyGame(int option){
             printf("|-------------------------------------------|\n");
             printf("|---------------   Responda   --------------|\n");
             printf("|-------------------------------------------|\n");
-            printf("|                 %d * %d = ?               \n",easy.value1,easy.value2);
+            printf("|                 %d * %d = ?               |\n",easy.value1,easy.value2);
             printf("|-------------------------------------------|\n");
             printf("|Resposta:  ");
-            scanf("%f",&answer);
+            scanf("%d",&answer);
 
             if (answer == question){
-                printf("\n|Resposta Certa!\n");
-                printf("Resposta certa: %f",question);
+                printf("\nResposta Certa!\n");
+                printf("Resposta certa: %d\n",question);
                 points ++;
                     
                 printf("Vidas: %d\n",lifes);
@@ -326,17 +308,18 @@ void easyGame(int option){
                     
                 system("pause");
             }else{
-                printf("\n|Resposta Errada!");
-                printf("Resposta certa: %f",question);
+                printf("\nResposta Errada!\n");
+                printf("Resposta certa: %d\n",question);
                 lifes --;
                     
                 printf("Vidas: %d\n",lifes);
                 printf("Pontos: %d\n",points);
                     
                 if (lifes == 0){
-                    printf("Game Over");
+                    printf("Game Over\n");
 
                     system("pause");
+                    points = 0;
                     mainMenu(option);
                 }
                 
@@ -356,63 +339,24 @@ void easyGame(int option){
 
             system("cls");
             break;
-
-        case 3:    
-            easy.value1 = rand() % 11;
-            easy.value2 = rand() % 11;
-            question = (easy.value1 / easy.value2);
-                
-            printf("|-------------------------------------------|\n");
-            printf("|---------------   Responda   --------------|\n");
-            printf("|-------------------------------------------|\n");
-            printf("|                 %d / %d = ?               \n",easy.value1,easy.value2);
-            printf("|-------------------------------------------|\n");
-            printf("|Resposta:  ");
-            scanf("%f",&answer);
-
-            if (answer == question){
-                printf("\n|Resposta Certa!\n");
-                printf("Resposta certa: %f",question);
-                points ++;
-                    
-                printf("Vidas: %d\n",lifes);
-                printf("Pontos: %d\n",points);
-                    
-                system("pause");
-            }else{
-                printf("\n|Resposta Errada!");
-                printf("Resposta certa: %f",question);
-                lifes --;
-                    
-                printf("Vidas: %d\n",lifes);
-                printf("Pontos: %d\n",points);
-                    
-                if (lifes == 0){
-                    printf("Game Over");
-
-                    system("pause");
-                    mainMenu(option);
-                }
-                
-                system("pause");
-            }
-
-            system("cls");
-                
-            printf("|-------------------------------------------|\n");
-            printf("|----------   Desejá continuar?   ----------|\n");
-            printf("|-------------------------------------------|\n");
-            printf("|             1- Sim                        |\n");
-            printf("|             2- Não                        |\n");
-            printf("|-------------------------------------------|\n");
-            printf("|Opção:  ");
-            scanf("%d",&option);
-
-            system("cls");
         }
 
     }while(option == 1);
     
+    if (scoreEasy == NULL){
+    
+        printf("Comunique o administrador!\n");
+        system("pause");
+        exit(0);
+    
+    }else{
+
+        printf("Placar salvo!\n");
+        system("pause");
+    }
+
+    fclose(scoreEasy);
+
     mainMenu(option);
 }
 
@@ -424,9 +368,6 @@ void hardGame(){
 
 }
 
-void legendGame(){
-
-}
 
 void easyScore(){
 
